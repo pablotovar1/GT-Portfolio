@@ -31,21 +31,9 @@
     color: var(--ink);
     font-family: 'Syne', sans-serif;
     font-weight: 400;
-    cursor: none;
     overflow-x: hidden;
   }
-  .cursor {
-    position: fixed; width: 7px; height: 7px;
-    background: var(--accent); border-radius: 50%;
-    pointer-events: none; z-index: 9999;
-    transform: translate(-50%, -50%);
-  }
-  .cursor-ring {
-    position: fixed; width: 28px; height: 28px;
-    border: 1px solid rgba(46,125,184,0.35); border-radius: 50%;
-    pointer-events: none; z-index: 9998;
-    transform: translate(-50%, -50%);
-  }
+
 
   /* NAV */
   nav {
@@ -431,9 +419,6 @@
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
 <nav>
   <a href="#" class="nav-logo" onclick="showPage('home');return false;">Gabriel Tovar</a>
   <ul class="nav-links">
@@ -553,7 +538,7 @@
           <div class="detail-row"><span class="detail-label">Location</span><span class="detail-value">Alhambra, CA</span></div>
           <div class="detail-row"><span class="detail-label">Languages</span><span class="detail-value">English · Spanish (Professional)</span></div>
           <div class="detail-row"><span class="detail-label">Phone</span><span class="detail-value">(626) 807-7754</span></div>
-          <div class="detail-row"><span class="detail-label">Email</span><span class="detail-value"><a href="mailto:gabrielmtovar@gmail.com">gabrielmtovar@gmail.com</a></span></div>
+          <div class="detail-row"><span class="detail-label">Email</span><span class="detail-value"><a href="/cdn-cgi/l/email-protection#81e6e0e3f3e8e4edecf5eef7e0f3c1e6ece0e8edafe2eeec"><span class="__cf_email__" data-cfemail="a7c0c6c5d5cec2cbcad3c8d1c6d5e7c0cac6cecb89c4c8ca">[email&#160;protected]</span></a></span></div>
         </div>
       </div>
     </div>
@@ -658,7 +643,7 @@
   <footer>
     <span class="footer-name">Gabriel Tovar — Architecture</span>
     <div class="footer-contact">
-      <a href="mailto:gabrielmtovar@gmail.com">gabrielmtovar@gmail.com</a>
+      <a href="/cdn-cgi/l/email-protection#d8bfb9baaab1bdb4b5acb7aeb9aa98bfb5b9b1b4f6bbb7b5"><span class="__cf_email__" data-cfemail="91f6f0f3e3f8f4fdfce5fee7f0e3d1f6fcf0f8fdbff2fefc">[email&#160;protected]</span></a>
       <a href="tel:6268077754">(626) 807-7754</a>
       <a href="#" onclick="showPage('about');return false;">About</a>
     </div>
@@ -674,17 +659,8 @@
   </div>
 </div>
 
-<script>
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx+'px'; cursor.style.top = my+'px'; });
-  function animRing() {
-    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-    ring.style.left = rx+'px'; ring.style.top = ry+'px';
-    requestAnimationFrame(animRing);
-  }
-  animRing();
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  let mx = 0, my = 0;
 
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -707,15 +683,3 @@
     const label = el.querySelector('.gallery-item-label, .drawing-name');
     document.getElementById('lightboxImg').src = img.src;
     document.getElementById('lightboxCaption').textContent = label ? label.textContent.trim() : '';
-    document.getElementById('lightbox').classList.add('open');
-  }
-  function closeLightbox(e) {
-    if (e.target === document.getElementById('lightbox'))
-      document.getElementById('lightbox').classList.remove('open');
-  }
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('open');
-  });
-</script>
-</body>
-</html>
