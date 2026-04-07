@@ -56,13 +56,17 @@
   .nav-links a:hover { color: var(--ink); }
   .dropdown { position: relative; }
   .dropdown-menu {
-    display: none; position: absolute; top: calc(100% + 12px);
+    display: none; position: absolute; top: 100%;
     left: 50%; transform: translateX(-50%);
     background: var(--white); border: 1px solid var(--border);
     box-shadow: 0 8px 32px rgba(46,125,184,0.1);
     min-width: 220px; padding: 8px 0;
+    margin-top: 0;
   }
-  .dropdown:hover .dropdown-menu { display: block; }
+  .dropdown-menu::before {
+    content: ''; position: absolute; top: -12px; left: 0; right: 0; height: 12px;
+  }
+  .dropdown.open .dropdown-menu { display: block; }
   .dropdown-menu a {
     display: block; padding: 11px 20px; font-size: 11px;
     letter-spacing: 0.12em; text-transform: uppercase;
@@ -161,7 +165,7 @@
     display: flex; align-items: center; gap: 14px;
   }
   .section-label::before { content: ''; width: 28px; height: 1px; background: var(--border); }
-  .about-grid { display: grid; grid-template-columns: 320px 1fr; gap: 80px; align-items: start; }
+  .about-grid { display: grid; grid-template-columns: 160px 1fr; gap: 48px; align-items: start; }
   .about-name {
     font-family: 'Syne', sans-serif; font-weight: 600;
     font-size: clamp(38px, 4.5vw, 58px); letter-spacing: -0.01em;
@@ -364,7 +368,8 @@
     .axon-intro { grid-template-columns: 1fr; }
     .axon-intro-label { border-right: none; border-bottom: 1px solid var(--border); padding: 40px 20px; }
     .axon-intro-text { padding: 40px 20px; }
-    .axon-hero { padding: 40px 20px; }
+    .axon-hero { padding: 40px 20px; align-items: flex-end; }
+    .axon-title { font-size: clamp(28px, 8vw, 48px); line-height: 1.15; letter-spacing: -0.005em; overflow: visible; word-break: break-word; }
     .axon-gallery { padding: 48px 20px; }
     .gallery-row { flex-direction: column; }
     .row-1 .gallery-item-tall { min-height: 300px; }
@@ -389,9 +394,9 @@
     <li><a onclick="showPage('home')">Home</a></li>
     <li><a onclick="showPage('about')">About</a></li>
     <li class="dropdown">
-      <a>Projects &#9662;</a>
+      <a id="projects-toggle">Projects</a>
       <div class="dropdown-menu">
-        <a onclick="showPage('axon')">Overlapping Encounters</a>
+        <a onclick="showPage('axon'); closeDropdown();">Overlapping Encounters</a>
       </div>
     </li>
   </ul>
@@ -403,7 +408,7 @@
   <div class="home-grid"></div>
   <div class="home-circle"></div>
   <div class="home-content">
-    <p class="home-eyebrow">Architecture Portfolio 2025</p>
+    <p class="home-eyebrow">Architecture Portfolio <span id="current-year"></span></p>
     <h1 class="home-title">GABRIEL<br><span class="outline">TOVAR</span></h1>
     <p class="home-sub">Architecture Student &#183; Cal Poly Pomona &#183; B.A. Expected 2029</p>
     <button class="home-cta" onclick="showPage('axon')">View Projects</button>
@@ -418,10 +423,6 @@
     <div class="about-grid">
       <div>
         <h1 class="about-name">Gabriel<br><span class="outline">Tovar</span></h1>
-        <div class="about-photo">
-          <span class="photo-plus">+</span>
-          <span>Add Photo Here</span>
-        </div>
       </div>
       <div class="about-body">
         <p>I am an architecture student at California State Polytechnic University, Pomona, with a passion for design thinking, spatial reasoning, and the way built environments shape human experience. My work explores the intersection of form, program, and place.</p>
@@ -472,11 +473,11 @@
           </ul>
         </div>
         <div class="about-details">
+          <div class="detail-row"><span class="detail-label">Contact / Email</span><span class="detail-value"><a href="mailto:gabrielmtovar@gmail.com" style="color:inherit;text-decoration:none;border-bottom:1px solid var(--border);">gabrielmtovar@gmail.com</a></span></div>
           <div class="detail-row"><span class="detail-label">School</span><span class="detail-value">Cal Poly Pomona</span></div>
           <div class="detail-row"><span class="detail-label">Degree</span><span class="detail-value">B.A. Architecture &#8212; Expected May 2029</span></div>
           <div class="detail-row"><span class="detail-label">Year</span><span class="detail-value">Second Year</span></div>
           <div class="detail-row"><span class="detail-label">Languages</span><span class="detail-value">English &#183; Spanish (Professional)</span></div>
-          <div class="detail-row"><span class="detail-label">Contact</span><span class="detail-value">gabrieltovar [at] gmail.com</span></div>
         </div>
       </div>
     </div>
@@ -519,7 +520,6 @@
       <p>This project is a proposed new venue for the Colburn School. The proposal's formal system is generated from a series of long strips that overlap and push into each other, creating moments of intersection. These large strips, all derived from the same angular logic, bend, slope, turn, and collide to form a dynamic spatial network.</p>
       <p>Their interactions create moments of interest for visitors, where they can engage directly with the architecture. The intersections frame views into other strips and programs, while also creating opportunities for visitors to physically pass through and experience the system at a human scale.</p>
       <p>Programmatically, the project operates as a performing arts center. It features three theaters of varying sizes and a large outdoor gathering area that functions as an open-air performance space. The educational program for students and faculty is embedded within the overlapping strips, allowing educational and performance spaces to intertwine.</p>
-      <div class="placeholder-text">&#10022; Add additional project narrative here &#8212; design process, site analysis, material choices, or personal reflection.</div>
     </div>
   </div>
 
@@ -586,9 +586,6 @@
 
   <footer>
     <span class="footer-name">Gabriel Tovar &#8212; Architecture 2025</span>
-    <div class="footer-contact">
-      <span>gabrieltovar [at] gmail.com</span>
-    </div>
   </footer>
 </section>
 
@@ -614,7 +611,17 @@ function triggerFadeIns() {
     }
   });
 }
-window.addEventListener('scroll', triggerFadeIns);
+function closeDropdown() {
+  document.querySelector('.dropdown').classList.remove('open');
+}
+document.getElementById('projects-toggle').addEventListener('click', function(e) {
+  e.stopPropagation();
+  document.querySelector('.dropdown').classList.toggle('open');
+});
+document.addEventListener('click', function() {
+  closeDropdown();
+});
+document.getElementById('current-year').textContent = new Date().getFullYear();
 setTimeout(triggerFadeIns, 200);
 function openLightbox(el) {
   var img = el.querySelector('img');
