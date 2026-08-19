@@ -209,10 +209,10 @@
   .experience-section { margin-top: 32px; }
   .exp-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 18px; color: var(--ink); margin-bottom: 24px; letter-spacing: 0.02em; }
   .exp-item { padding: 20px 0; border-bottom: 1px solid var(--border-light); display: grid; grid-template-columns: 1fr auto; gap: 8px; }
-  .exp-role { font-size: 14px; font-weight: 600; color: var(--ink-mid); margin-bottom: 4px; }
-  .exp-org { font-size: 13px; color: var(--steel); margin-bottom: 8px; }
-  .exp-date { font-family: 'Syne Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; white-space: nowrap; }
-  .exp-desc { font-size: 13px; color: var(--slate); line-height: 1.7; grid-column: 1 / -1; }
+  .exp-role { font-size: 14px; font-weight: 600; color: var(--ink-mid); margin-bottom: 4px; grid-column: 1; grid-row: 1; }
+  .exp-org { font-size: 13px; color: var(--steel); margin-bottom: 8px; grid-column: 1 / -1; white-space: nowrap; }
+  .exp-date { font-family: 'Syne Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; white-space: nowrap; grid-column: 2; grid-row: 1; }
+  .exp-desc { font-size: 13px; color: var(--slate); line-height: 1.7; grid-column: 1 / -1; grid-row: 3; }
   .ach-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
   .ach-list li { display: flex; align-items: baseline; gap: 10px; font-size: 13px; color: var(--slate); line-height: 1.5; }
   .ach-list li::before { content: '\2014'; color: var(--accent-soft); font-size: 12px; flex-shrink: 0; }
@@ -497,17 +497,20 @@
         <div class="experience-section">
           <p class="exp-title">Experience</p>
           <div class="exp-item">
-            <div><p class="exp-role">Intern Engineer</p><p class="exp-org">Pankow Builders &#8212; Pasadena, CA</p></div>
+            <p class="exp-role">Intern Engineer</p>
+            <p class="exp-org">Pankow Builders &#8212; Pasadena, CA</p>
             <p class="exp-date">June &#8211; August 2026</p>
             <p class="exp-desc">&#8226; Drafted, logged, and managed RFIs and submittals using Autodesk Construction Cloud.<br>&#8226; Coordinated with subcontractors and architects via phone and email to clarify scope and resolve document discrepancies.<br>&#8226; Tracked material procurement status across active work packages, following up with vendors and subcontractors to keep delivery schedules aligned with project timelines.<br>&#8226; Maintained organized project logs and correspondence records using CMiC.</p>
           </div>
           <div class="exp-item">
-            <div><p class="exp-role">GIS Intern</p><p class="exp-org">Pasadena City Hall &#8212; Pasadena, CA</p></div>
+            <p class="exp-role">GIS Intern</p>
+            <p class="exp-org">City of Pasadena &#8212; Pasadena, CA</p>
             <p class="exp-date">Jun &#8211; Nov 2025</p>
             <p class="exp-desc">Assisted in developing a proof of concept for ArcGIS indoor mapping. Created architectural floor plans of public libraries and designed two additional conceptual floor levels to demonstrate multi-story mapping potential.</p>
           </div>
           <div class="exp-item">
-            <div><p class="exp-role">Seasonal Retail Associate</p><p class="exp-org">Vans Outlet &#8212; Commerce, CA</p></div>
+            <p class="exp-role">Seasonal Retail Associate</p>
+            <p class="exp-org">Vans Outlet &#8212; Commerce, CA</p>
             <p class="exp-date">Jul &#8211; Sep 2025</p>
             <p class="exp-desc">Delivered strong customer service in a high-volume retail environment, developing communication and teamwork skills.</p>
           </div>
