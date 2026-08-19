@@ -139,6 +139,16 @@
   }
   .home-cta:hover { background: var(--accent); }
   .home-cta::after { content: '\2192'; font-size: 14px; }
+  .project-next { display: flex; justify-content: center; padding: 64px 52px; }
+  .project-next button {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 14px 36px; background: var(--ink); color: var(--fog);
+    font-family: 'Syne', sans-serif; font-size: 11px; letter-spacing: 0.2em;
+    text-transform: uppercase; font-weight: 500; cursor: pointer; border: none;
+    transition: background 0.25s, color 0.25s;
+  }
+  .project-next button:hover { background: var(--accent); }
+  .project-next button::after { content: '\2192'; font-size: 14px; }
   .home-scroll {
     position: absolute; bottom: 36px; right: 52px; writing-mode: vertical-rl;
     font-family: 'Syne Mono', monospace; font-size: 9px;
@@ -265,7 +275,7 @@
   }
   .axon-intro-label {
     padding: 60px 44px; border-right: 1px solid var(--border);
-    display: flex; flex-direction: column; justify-content: space-between;
+    display: flex; flex-direction: column; justify-content: flex-start; gap: 48px;
     background: var(--ice);
   }
   .intro-number { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 72px; color: var(--border); line-height: 1; letter-spacing: -0.02em; }
@@ -322,13 +332,26 @@
   .gallery-col-right { display: flex; flex-direction: column; gap: 10px; flex: 1; }
 
   .row-1 { align-items: stretch; }
-  .row-1 .gallery-item-tall { flex: 1.4; min-height: 480px; }
-  .gallery-col-right .gallery-item { min-height: 236px; flex: 1; }
+  .row-1 .gallery-item-tall { flex: 1; min-height: 480px; }
+  .gallery-col-right .gallery-item { min-height: 480px; flex: 1; }
+  .gallery-col-right .gallery-item img { object-fit: cover; object-position: center; transform: scale(1.15); }
   .row-2 .gallery-item { min-height: 220px; }
   .row-3 .gallery-item-wide { width: 100%; min-height: 180px; }
   .row-4 .gallery-item { min-height: 360px; }
+  .row-4 .gallery-item-wide { width: 100%; min-height: 180px; }
+  .row-5 { align-items: stretch; gap: 10px; }
+  .row-5 .gallery-item { flex: 1; min-height: 480px; }
   .row-5 .gallery-item-wide { width: 100%; min-height: 300px; }
 
+  /* Pavilion specific rows */
+  .row-1-pavilion { align-items: stretch; }
+  .row-1-pavilion .gallery-item-wide { width: 100%; min-height: 360px; }
+  .row-2-pavilion { align-items: stretch; gap: 10px; }
+  .row-2-pavilion .gallery-item { flex: 1; min-height: 360px; }
+  .row-3-pavilion { align-items: stretch; gap: 10px; }
+  .row-3-pavilion .gallery-item { flex: 1; min-height: 360px; }
+  .row-4-pavilion { align-items: stretch; gap: 10px; }
+  .row-4-pavilion .gallery-item { flex: 1; min-height: 360px; }
   /* Lightbox */
   .lightbox {
     display: none; position: fixed; inset: 0; z-index: 200;
@@ -372,13 +395,23 @@
     .axon-title { font-size: clamp(28px, 8vw, 48px); line-height: 1.15; letter-spacing: -0.005em; overflow: visible; word-break: break-word; }
     .axon-gallery { padding: 48px 20px; }
     .gallery-row { flex-direction: column; }
+    .row-1-pavilion { flex-direction: column; }
+    .row-2-pavilion { flex-direction: column; }
+    .row-3-pavilion { flex-direction: column; }
+    .row-4-pavilion { flex-direction: column; }
     .row-1 .gallery-item-tall { min-height: 300px; }
     .gallery-col-right { flex-direction: row; }
-    .gallery-col-right .gallery-item { min-height: 180px; }
+    .gallery-col-right .gallery-item { min-height: 300px; }
     .row-2 .gallery-item { min-height: 160px; }
     .row-3 .gallery-item-wide { min-height: 120px; }
     .row-4 .gallery-item { min-height: 260px; }
+    .row-4 .gallery-item-wide { min-height: 120px; }
+    .row-5 .gallery-item { min-height: 300px; }
     .row-5 .gallery-item-wide { min-height: 200px; }
+    .row-1-pavilion .gallery-item-wide { min-height: 260px; }
+    .row-2-pavilion .gallery-item { min-height: 260px; }
+    .row-3-pavilion .gallery-item { min-height: 260px; }
+    .row-4-pavilion .gallery-item { min-height: 260px; }
     footer { flex-direction: column; gap: 12px; padding: 28px 20px; text-align: center; }
     .about-wrap { padding: 80px 20px 60px; }
     .home-content { padding: 0 24px; }
@@ -397,6 +430,8 @@
       <a id="projects-toggle">Projects</a>
       <div class="dropdown-menu">
         <a onclick="showPage('axon'); closeDropdown();">Overlapping Encounters</a>
+        <a onclick="showPage('newproject'); closeDropdown();">The Covered Field</a>
+        <a onclick="showPage('pavilion'); closeDropdown();">Terrace Pavilion</a>
       </div>
     </li>
   </ul>
@@ -426,14 +461,17 @@
       </div>
       <div class="about-body">
         <p>I am an architecture student at California State Polytechnic University, Pomona, with a passion for design thinking, spatial reasoning, and the way built environments shape human experience. My work explores the intersection of form, program, and place.</p>
-        <p>Through my academic training and a GIS internship at Pasadena City Hall, I have developed a strong foundation in technical drafting, 3D modeling, and design communication. I am eager to bring my skills into a professional setting and continue growing under the guidance of a licensed architect.</p>
+        <p>Through my academic training and an internship at Pankow Builders, a leading general contractor, I have developed hands-on experience in construction document management, RFI and submittal coordination, and material procurement tracking. I am eager to bring these technical and organizational skills into a design-focused setting and continue growing under the guidance of a licensed architect.</p>
         <p>I am bilingual in English and Spanish, a lifelong athlete, and bring the same discipline and collaborative mindset from the field into every design challenge I take on.</p>
         <div class="skills-section">
-          <p class="skills-label">Technical Skills</p>
+          <p class="skills-label">Design &amp; Technical</p>
           <div class="skills-tags">
             <span class="tag accent">AutoCAD</span>
             <span class="tag accent">Rhino 3D</span>
             <span class="tag accent">ArcGIS</span>
+            <span class="tag accent">Bluebeam Revu</span>
+            <span class="tag accent">Autodesk Construction Cloud</span>
+            <span class="tag accent">CMiC</span>
             <span class="tag">Design Thinking</span>
             <span class="tag">Conceptual Development</span>
             <span class="tag">Drafting</span>
@@ -442,14 +480,27 @@
           </div>
           <p class="skills-label">Professional</p>
           <div class="skills-tags">
+            <span class="tag">Time Management</span>
             <span class="tag">Team Collaboration</span>
             <span class="tag">Problem Solving</span>
             <span class="tag">Detail-Oriented</span>
+            <span class="tag">Positive Work Ethic</span>
             <span class="tag">Spanish (Professional)</span>
+          </div>
+          <p class="skills-label">Construction Coordination</p>
+          <div class="skills-tags">
+            <span class="tag">Managing RFIs and Submittals</span>
+            <span class="tag">Coordinating with Subcontractors and Architects</span>
+            <span class="tag">Tracking Material Procurement in a GC Office Environment</span>
           </div>
         </div>
         <div class="experience-section">
           <p class="exp-title">Experience</p>
+          <div class="exp-item">
+            <div><p class="exp-role">Intern Engineer</p><p class="exp-org">Pankow Builders &#8212; Pasadena, CA</p></div>
+            <p class="exp-date">June &#8211; August 2026</p>
+            <p class="exp-desc">&#8226; Drafted, logged, and managed RFIs and submittals using Autodesk Construction Cloud.<br>&#8226; Coordinated with subcontractors and architects via phone and email to clarify scope and resolve document discrepancies.<br>&#8226; Tracked material procurement status across active work packages, following up with vendors and subcontractors to keep delivery schedules aligned with project timelines.<br>&#8226; Maintained organized project logs and correspondence records using CMiC.</p>
+          </div>
           <div class="exp-item">
             <div><p class="exp-role">GIS Intern</p><p class="exp-org">Pasadena City Hall &#8212; Pasadena, CA</p></div>
             <p class="exp-date">Jun &#8211; Nov 2025</p>
@@ -476,7 +527,7 @@
           <div class="detail-row"><span class="detail-label">Contact / Email</span><span class="detail-value">gabrielmtovar [at] gmail.com</span></div>
           <div class="detail-row"><span class="detail-label">School</span><span class="detail-value">Cal Poly Pomona</span></div>
           <div class="detail-row"><span class="detail-label">Degree</span><span class="detail-value">B.A. Architecture &#8212; Expected May 2029</span></div>
-          <div class="detail-row"><span class="detail-label">Year</span><span class="detail-value">Second Year</span></div>
+          <div class="detail-row"><span class="detail-label">Year</span><span class="detail-value">Third Year</span></div>
           <div class="detail-row"><span class="detail-label">Languages</span><span class="detail-value">English &#183; Spanish (Professional)</span></div>
         </div>
       </div>
@@ -493,7 +544,7 @@
     </div>
     <div class="axon-hero-overlay"></div>
     <div class="axon-hero-content">
-      <div class="project-tag">Project 01 &#8212; Studio Design &#183; Cal Poly Pomona</div>
+      <div class="project-tag" style="font-size: 12px; font-weight: 700;"><strong>Project 01 &#8212; Studio Peoject &#183; Cal Poly Pomona</strong></div>
       <h1 class="axon-title">OVERLAPPING<br><span class="outline">ENCOUNTERS</span></h1>
       <div class="axon-subtitle">
         <span>Colburn School, Los Angeles</span>
@@ -584,8 +635,203 @@
 
   </div>
 
+  <div class="project-next">
+    <button onclick="showPage('newproject')">View Next Project</button>
+  </div>
+
   <footer>
     <span class="footer-name">Gabriel Tovar &#8212; Architecture 2025</span>
+  </footer>
+</section>
+
+<!-- PROJECT: NEW PROJECT -->
+<section id="newproject" class="page">
+
+  <div class="axon-hero">
+    <div class="axon-hero-img">
+      <img src="CoveredField/AXONOMETRIC.png" alt="The Covered Field Axonometric">
+    </div>
+    <div class="axon-hero-overlay"></div>
+    <div class="axon-hero-content">
+      <div class="project-tag" style="font-size: 12px; font-weight: 700;"><strong>Project 02 &#8212; Studio Project &#183; Cal Poly Pomona</strong></div>
+      <h1 class="axon-title">THE COVERED<br><span class="outline">FIELD</span></h1>
+      <div class="axon-subtitle">
+        <span>Claremont Metro Station</span>
+        <span>Transportation Hub</span>
+        <span>2026</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="axon-intro fade-in">
+    <div class="axon-intro-label">
+      <div class="intro-number">02</div>
+      <div class="intro-meta">
+        <div class="meta-item"><span class="meta-key">Type</span><span class="meta-val">Transit Hub</span></div>
+        <div class="meta-item"><span class="meta-key">Program</span><span class="meta-val">Gathering/Art Exhibition/Ticketing</span></div>
+        <div class="meta-item"><span class="meta-key">Client</span><span class="meta-val">City of Claremont</span></div>
+        <div class="meta-item"><span class="meta-key">Scale</span><span class="meta-val">Urban Transit</span></div>
+        <div class="meta-item"><span class="meta-key">Studio</span><span class="meta-val">Cal Poly Pomona</span></div>
+        <div class="meta-item"><span class="meta-key">Year</span><span class="meta-val">2026</span></div>
+      </div>
+    </div>
+    <div class="axon-intro-text">
+      <h2>THE COVERED FIELD</h2>
+      <p>This final proposal builds on the findings from the midterm, turning everything into a more cohesive project. To continue the sense of individuality from the midterm, the final proposal features 3 separate but connected systems. The 3 systems in question are the columns, the walls/pavilions, and the roof canopy.</p>
+      <p>Firstly there is the column field. The project uses its underlying grid to place columns all over the site creating a unique ground condition without ground manipulations. The large number of columns is intentionally a bit obstructing to force visitors to make a lot of little decisions.</p>
+      <p>Furthermore the column system supports the roof canopy system that covers pretty much the whole site. Next there is the roof canopy system. It is comprised of 2 large pieces that respond to each other to cover the necessary areas. Its pattern is derived from the grid imposed on the site which is a grid rotated on itself by 15 degrees. The canopy ties the whole project together. It provides shade across the project as well as giving a sense of enclosure with differing heights.</p>
+      <p>Then the last portion of the project is the walls/pavilions. The pavilions negotiate with the columns throughout the project to decide whether or not they are going to connect or not. For example, in the ticketing pavilion, the walls sort of connect the dots and span between the columns in that area. Whereas the gathering space pavilion where none of the walls connect to any of the columns and they kind of go around. And then the gallery pavilion is a little bit of both where there is one set of walls creating a boundary using the columns, and then a second set that doesn’t adhere to the columns in their placement.</p>
+    </div>
+  </div>
+
+  <div class="axon-gallery fade-in">
+    <div class="gallery-header">
+      <span class="gallery-title">Drawings &amp; Views</span>
+      <span class="gallery-count">07 Images</span>
+    </div>
+
+    <div class="gallery-row row-1">
+      <div class="gallery-item gallery-item-tall" onclick="openLightbox(this)">
+        <img src="CoveredField/AXONOMETRIC.png" alt="Axonometric">
+        <div class="gallery-item-label">AXONOMETRIC</div>
+      </div>
+      <div class="gallery-col-right">
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="CoveredField/SITEPLAN.png" alt="Site Plan">
+          <div class="gallery-item-label">SITEPLAN</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-row row-2">
+      <div class="gallery-item gallery-item-wide" onclick="openLightbox(this)">
+        <img src="CoveredField/PERSPECTIVE SHOT.png" alt="Perspective">
+        <div class="gallery-item-label">PERSPECTIVE</div>
+      </div>
+    </div>
+
+    <div class="gallery-row row-3">
+      <div class="gallery-item gallery-item-wide" onclick="openLightbox(this)">
+        <img src="CoveredField/SECTION.png" alt="Section">
+        <div class="gallery-item-label">SECTION</div>
+      </div>
+    </div>
+
+    <div class="gallery-row row-4">
+      <div class="gallery-item gallery-item-wide" onclick="openLightbox(this)">
+        <img src="CoveredField/OBLIQUE.png" alt="Oblique">
+        <div class="gallery-item-label">OBLIQUE</div>
+      </div>
+    </div>
+
+    <div class="gallery-row row-5">
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="CoveredField/CHUNK.png" alt="Chunk">
+        <div class="gallery-item-label">CHUNK</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="CoveredField/FULL.png" alt="Full">
+        <div class="gallery-item-label">FULL</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="project-next">
+    <button onclick="showPage('pavilion')">View Next Project</button>
+  </div>
+
+  <footer>
+    <span class="footer-name">Gabriel Tovar &#8212; Architecture 2026</span>
+  </footer>
+</section>
+
+<!-- PROJECT: TERRACE PAVILION -->
+<section id="pavilion" class="page">
+
+  <div class="axon-hero">
+    <div class="axon-hero-img">
+      <img src="Pavilion/AXON.png" alt="Terrace Pavilion Axon">
+    </div>
+    <div class="axon-hero-overlay"></div>
+    <div class="axon-hero-content">
+      <div class="project-tag" style="font-size: 12px; font-weight: 700;"><strong>Project 03 &#8212; SPECIAL PROJECT &#183; Cal Poly Pomona</strong></div>
+      <h1 class="axon-title">TERRACE PAVILION<br><span class="outline"></span></h1>
+      <div class="axon-subtitle">
+        <span>2026</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="axon-intro fade-in">
+    <div class="axon-intro-label">
+      <div class="intro-number">03</div>
+      <div class="intro-meta">
+        <div class="meta-item"><span class="meta-key">Type</span><span class="meta-val">Pavilion</span></div>
+        <div class="meta-item"><span class="meta-key">Program</span><span class="meta-val">Gathering Space</span></div>
+        <div class="meta-item"><span class="meta-key">Studio</span><span class="meta-val">Cal Poly Pomona</span></div>
+        <div class="meta-item"><span class="meta-key">Year</span><span class="meta-val">2025</span></div>
+      </div>
+    </div>
+    <div class="axon-intro-text">
+      <h2>Project Description</h2>
+      <p>The pavilion is generated through a formal system of triangulation, in which larger triangular volumes are subdivided into recursive networks of smaller triangles. This governing geometry structures every scale of the project, from the overall massing down to individual building components, giving the design a unified formal logic.</p>
+      <p>The scheme unfolds across four terraced platforms, stepping the program through a sequence of elevated ground planes. Each terrace is sheltered by a roof composed of individual triangular panels, derived from a regular grid laid over the site and then distorted and stretched to respond to programmatic and spatial conditions below. This transformation process allows the roof to shift from a rigid, uniform pattern into a more fluid, responsive surface, faceted yet continuous.</p>
+      <p>Supporting the roof is a system of angled structural studs that extend the same triangulated language into the vertical dimension, blurring the distinction between structure and enclosure. Rather than treating roof and support as separate systems, the studs read as an extension of the paneling logic itself, reinforcing the pavilion&#8217;s coherence as a single geometric idea carried through at every scale.</p>
+      <p>The result is a pavilion where the terrace, roof, and structure are unified by one continuous formal system, triangulated, distorted, and stretched into an architecture of layered platforms and faceted shelter.</p>
+    </div>
+  </div>
+
+  <div class="axon-gallery fade-in">
+    <div class="gallery-header">
+      <span class="gallery-title">Drawings &amp; Views</span>
+      <span class="gallery-count">07 Images</span>
+    </div>
+
+    <div class="gallery-row row-1-pavilion">
+      <div class="gallery-item gallery-item-wide" onclick="openLightbox(this)">
+        <img src="Pavilion/AXON.png" alt="Axon">
+        <div class="gallery-item-label">AXON</div>
+      </div>
+    </div>
+
+    <div class="gallery-row row-2-pavilion">
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="Pavilion/PLANS.png" alt="Plans">
+        <div class="gallery-item-label">PLANS</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="Pavilion/SECTION.png" alt="Section">
+        <div class="gallery-item-label">SECTION</div>
+      </div>
+    </div>
+
+    <div class="gallery-row row-3-pavilion">
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="Pavilion/UNFOLDED ELEVATION.png" alt="Unfolded Elevation">
+        <div class="gallery-item-label">UNFOLDED ELEVATION</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="Pavilion/DIAGRAM.png" alt="Formal Diagram">
+        <div class="gallery-item-label">FORMAL DIAGRAM</div>
+      </div>
+    </div>
+
+    <div class="gallery-row row-4-pavilion">
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="Pavilion/MODEL PHOTO ELEVATION.png" alt="Model Photo Elevation">
+        <div class="gallery-item-label">MODEL PHOTO ELEVATION</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="Pavilion/MODEL PHOTO AXON.png" alt="Model Photo Axon">
+        <div class="gallery-item-label">MODEL PHOTO AXON</div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span class="footer-name">Gabriel Tovar &#8212; Architecture 2026</span>
   </footer>
 </section>
 
